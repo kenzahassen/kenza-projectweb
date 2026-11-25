@@ -22,6 +22,13 @@ class Speciality(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "Speciality"
+        verbose_name_plural = "Specialities"
+
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractUser):
     pass
@@ -41,6 +48,10 @@ class Doctor(User):
         related_name="doctors",
     )
 
+    class Meta:
+        verbose_name = "Doctor"
+        verbose_name_plural = "Doctors"
+
 
 class Patient(User):
     national_id = models.CharField(
@@ -52,3 +63,8 @@ class Patient(User):
     birth_date = models.DateField(validators=[validate_birth_date])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["last_name", "first_name"]
+        verbose_name = "Patient"
+        verbose_name_plural = "Patients"
